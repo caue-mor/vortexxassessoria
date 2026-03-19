@@ -166,17 +166,27 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="faturamento">Faturamento mensal</label>
-                            <select id="faturamento" name="faturamento">
-                                <option value="" disabled selected>Selecione</option>
-                                <option value="ate-30k">Até R$ 30 mil</option>
-                                <option value="30k-50k">De R$ 30 mil até R$ 50 mil</option>
-                                <option value="50k-100k">De R$ 50 mil até R$ 100 mil</option>
-                                <option value="100k-250k">De R$ 100 mil até R$ 250 mil</option>
-                                <option value="250k-500k">De R$ 250 mil até R$ 500 mil</option>
-                                <option value="500k+">Mais de R$ 500 mil</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="faturamento">Faturamento mensal</label>
+                                <select id="faturamento" name="faturamento">
+                                    <option value="" disabled selected>Selecione</option>
+                                    <option value="ate-30k">Até R$ 30 mil</option>
+                                    <option value="30k-50k">De R$ 30 mil até R$ 50 mil</option>
+                                    <option value="50k-100k">De R$ 50 mil até R$ 100 mil</option>
+                                    <option value="100k-250k">De R$ 100 mil até R$ 250 mil</option>
+                                    <option value="250k-500k">De R$ 250 mil até R$ 500 mil</option>
+                                    <option value="500k+">Mais de R$ 500 mil</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="proprietario">Você é o proprietário?</label>
+                                <select id="proprietario" name="proprietario" required>
+                                    <option value="" disabled selected>Selecione</option>
+                                    <option value="sim">Sim, sou o proprietário</option>
+                                    <option value="nao">Não</option>
+                                </select>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-accent btn-large btn-full">
                             Receber análise gratuita

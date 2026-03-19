@@ -164,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cidade = data.get('cidade') || '';
             const instalacoes = data.get('instalacoes') || '';
             const faturamento = data.get('faturamento') || '';
+            const proprietario = data.get('proprietario') || '';
 
             const msg = encodeURIComponent(
                 `Olá! Gostaria de receber uma análise gratuita.\n\n` +
@@ -172,10 +173,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 `Telefone: ${telefone}\n` +
                 `Cidade: ${cidade}\n` +
                 `Instalações/mês: ${instalacoes}\n` +
-                `Faturamento: ${faturamento}`
+                `Faturamento: ${faturamento}\n` +
+                `Proprietário: ${proprietario === 'sim' ? 'Sim' : 'Não'}`
             );
 
             window.open(`https://wa.me/5585981992658?text=${msg}`, '_blank');
+
+            // Redirect to correct thank you page
+            const thankYouPage = proprietario === 'sim' ? 'obrigado-2.html' : 'obrigado-1.html';
+            setTimeout(() => { window.location.href = thankYouPage; }, 500);
         });
     }
 

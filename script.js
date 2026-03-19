@@ -120,29 +120,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const geoChart = document.querySelector('.geo-chart');
     if (geoChart) chartObserver.observe(geoChart);
 
-    // ---- AI Dashboard Pipeline Animation ----
-    const pipelineCards = document.querySelectorAll('.ai-pipe-card');
-    const pipelineObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                pipelineCards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, index * 150);
-                });
-                pipelineObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.2 });
-    const pipeline = document.querySelector('.ai-dash-pipeline');
-    if (pipeline) {
-        pipelineCards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(12px)';
-            card.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1)';
-        });
-        pipelineObserver.observe(pipeline);
+    // ---- Funis Convergentes — Sentinel Phase Observers ----
+    const funnelsStage = document.getElementById('funnelsStage');
+    if (funnelsStage) {
+        const sentinels = funnelsStage.querySelectorAll('.funnel-sentinel');
+        const phaseObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const phase = entry.target.dataset.phase;
+                    funnelsStage.classList.add('phase-' + phase);
+                    phaseObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0, rootMargin: '0px 0px -100px 0px' });
+        sentinels.forEach(s => phaseObserver.observe(s));
     }
 
     // ---- FAQ Accordion ----
@@ -168,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const data = new FormData(leadForm);
             const nome = data.get('nome') || '';
-            const empresa = data.get('empresa') || '';
+            const instagram = data.get('instagram') || '';
             const telefone = data.get('telefone') || '';
             const cidade = data.get('cidade') || '';
             const instalacoes = data.get('instalacoes') || '';
@@ -177,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const msg = encodeURIComponent(
                 `Olá! Gostaria de receber uma análise gratuita.\n\n` +
                 `Nome: ${nome}\n` +
-                `Empresa: ${empresa}\n` +
+                `Instagram: ${instagram}\n` +
                 `Telefone: ${telefone}\n` +
                 `Cidade: ${cidade}\n` +
                 `Instalações/mês: ${instalacoes}\n` +

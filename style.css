@@ -276,6 +276,17 @@ a { text-decoration: none; color: inherit; }
 }
 .about-wrapper h2 { font-size:clamp(1.5rem,3vw,2.2rem); font-weight:800; line-height:1.2; margin-bottom:24px; letter-spacing:-0.5px; text-transform:uppercase; }
 .about-wrapper p { color:var(--foreground-secondary); line-height:1.8; font-size:0.95rem; margin-bottom:16px; }
+.about-numbers {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:40px;
+}
+.about-number-item {
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    padding:24px 16px; background:var(--background-secondary); border:1px solid var(--border);
+    border-radius:var(--radius-lg); transition:var(--transition-base);
+}
+.about-number-item:hover { border-color:var(--accent-border); }
+.about-number { font-size:2.2rem; font-weight:900; color:var(--accent); letter-spacing:-2px; line-height:1; }
+.about-number-label { font-size:0.72rem; font-weight:600; color:var(--foreground-muted); text-transform:uppercase; letter-spacing:1px; text-align:center; }
 
 /* ============================================
    PROBLEM SECTION
@@ -641,6 +652,10 @@ a { text-decoration: none; color: inherit; }
     :root { --section-padding:80px 0; }
     .hero { padding:100px 0 60px; }
     .hero h1 { font-size:1.8rem; }
+    .about-numbers { grid-template-columns:1fr; gap:10px; }
+    .about-number-item { flex-direction:row; gap:12px; padding:16px 20px; }
+    .about-number { font-size:1.6rem; }
+    .about-number-label { text-align:left; }
     .metrics-grid { grid-template-columns:1fr 1fr; gap:10px; }
     .metric-card { padding:24px 16px; }
     .metric-number { font-size:2rem; }

@@ -152,6 +152,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ---- Capturar parâmetros de tracking da URL e salvar no sessionStorage ----
+    const urlParams = new URLSearchParams(window.location.search);
+    const trackingKeys = [
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+        'campaign_name', 'adset_name', 'ad_name', 'campaign_id', 'adset_id', 'ad_id',
+        'fbclid'
+    ];
+    trackingKeys.forEach(key => {
+        const val = urlParams.get(key);
+        if (val) sessionStorage.setItem(key, val);
+    });
+
     // ---- Form submission → WhatsApp ----
     const leadForm = document.getElementById('leadForm');
     if (leadForm) {
@@ -166,22 +178,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const faturamento = data.get('faturamento') || '';
             const proprietario = data.get('proprietario') || '';
 
-            const msg = encodeURIComponent(
-                `Olá! Gostaria de receber uma análise gratuita.\n\n` +
-                `Nome: ${nome}\n` +
-                `Instagram: ${instagram}\n` +
-                `Telefone: ${telefone}\n` +
-                `Cidade: ${cidade}\n` +
-                `Instalações/mês: ${instalacoes}\n` +
-                `Faturamento: ${faturamento}\n` +
-                `Proprietário: ${proprietario === 'sim' ? 'Sim' : 'Não'}`
-            );
+            // Recuperar tracking salvos
+            const utm_source = sessionStorage.getItem('utm_source') || '';
+            const utm_medium = sessionStorage.getItem('utm_medium') || '';
+            const utm_campaign = sessionStorage.getItem('utm_campaign') || '';
+            const utm_content = sessionStorage.getItem('utm_content') || '';
+            const utm_term = sessionStorage.getItem('utm_term') || '';
+            const campaign_name = sessionStorage.getItem('campaign_name') || utm_campaign;
+            const adset_name = sessionStorage.getItem('adset_name') || '';
+            const ad_name = sessionStorage.getItem('ad_name') || '';
+            const campaign_id = sessionStorage.getItem('campaign_id') || '';
+            const adset_id = sessionStorage.getItem('adset_id') || '';
+            const ad_id = sessionStorage.getItem('ad_id') || '';
+            const fbclid = sessionStorage.getItem('fbclid') || '';
+            const platform = utm_source || (fbclid ? 'facebook' : '');
 
-            window.open(`https://wa.me/5585981992658?text=${msg}`, '_blank');
+            // Google Sheets — enviar dados com tracking
+            fetch('https://script.google.com/macros/s/AKfycby950yIcY7f72A_EwhJy4dqNSMlABv0TxAw1Ef05ViqSXC2zxC6aqeXRyztQhIT8OXE/exec', {
+                method: 'POST',
+                body: JSON.stringify({ nome, instagram, telefone, cidade, instalacoes, faturamento, proprietario: proprietario === 'sim' ? 'Sim' : 'Não', campaign_name, adset_name, ad_name, campaign_id, adset_id, ad_id, platform, fbclid }),
+                headers: { 'Content-Type': 'text/plain' }
+            }).catch(() => {});
 
             // Redirect to correct thank you page
+            // Lead event fires on the thank-you page (obrigado-1/2.html) to avoid duplication
             const thankYouPage = proprietario === 'sim' ? 'obrigado-2.html' : 'obrigado-1.html';
-            setTimeout(() => { window.location.href = thankYouPage; }, 500);
+            window.location.href = thankYouPage;
         });
     }
 

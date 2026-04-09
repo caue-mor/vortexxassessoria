@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const platform = utm_source || (fbclid ? 'facebook' : '');
 
             // Google Sheets — enviar dados com tracking
-            fetch('https://script.google.com/macros/s/AKfycby950yIcY7f72A_EwhJy4dqNSMlABv0TxAw1Ef05ViqSXC2zxC6aqeXRyztQhIT8OXE/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbzmhIK_PoKc1FuPBrYkYHT5vUl_PXnsBRIZ6jpqPW18zVYwcghLPcJO_tftEafYgvwk/exec', {
                 method: 'POST',
                 body: JSON.stringify({ nome, instagram, telefone, cidade, instalacoes, faturamento, proprietario: proprietario === 'sim' ? 'Sim' : 'Não', campaign_name, adset_name, ad_name, campaign_id, adset_id, ad_id, platform, fbclid }),
                 headers: { 'Content-Type': 'text/plain' }
